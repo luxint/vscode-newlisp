@@ -4,7 +4,7 @@
 	"description": "newLISP language support for Visual Studio Code",
 	"icon": "https://github.com/luxint/vscode-newlispimages/newLISP-GS.png",
 	"version": "0.0.1",
-	"publisher": "newlisp",
+	"publisher": "luxint",
 	"repository": "https://github.com/luxint/vscode-newlisp",
 	"engines": {
 		"vscode": "^1.25.0"
