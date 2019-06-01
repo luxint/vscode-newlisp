@@ -1,0 +1,79 @@
+{
+	"name": "vscode-newlisp",
+	"displayName": "newLISP",
+	"description": "newLISP language support for Visual Studio Code",
+	"icon": "images/newLISP-GS.png",
+	"version": "0.0.1",
+	"publisher": "newlisp",
+	"repository": "",
+	"engines": {
+		"vscode": "^1.25.0"
+	},
+	"categories": [
+		"Programming Languages"
+	],
+	"activationEvents": [
+		"onCommand:newlisp.startREPL",
+		"onCommand:newlispl.eval",
+		"onCommand:newlisp.evalFile"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"languages": [
+			{
+				"id": "newlisp",
+				"aliases": [
+					"newLISP",
+					"newlisp"
+				],
+				"extensions": [
+					".lsp"
+				],
+				"configuration": "./nl.configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "newlisp",
+				"scopeName": "source.newlisp",
+				"path": "./Syntaxes/newlisp.tmLanguage.json"
+			}
+		],
+		"commands": [
+			{
+				"command": "newlisp.startREPL",
+				"title": "newLISP: Start REPL"
+			},
+			{
+				"command": "newlisp.eval",
+				"title": "newLISP: Evaluate expression"
+			},
+			{
+				"command": "newlisp.evalFile",
+				"title": "newLISP: Evaluate file"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "newlisp.eval",
+				"key": "alt+e"
+			},
+			{
+				"command": "newlisp.evalFile",
+				"key": "alt+l"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"postinstall": "node ./node_modules/vscode/bin/install"
+	},
+	"devDependencies": {
+		"@types/node": "^8.10.25",
+		"tslint": "^5.11.0",
+		"typescript": "^2.6.1",
+		"vscode": "^1.1.22"
+	}
+}
