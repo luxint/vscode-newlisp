@@ -41,6 +41,9 @@ function getREPL(show) {
         terminal.show();
     return terminal;
 }
+function prep(input) {
+    return '\n' + input +'\n\n';
+}
 
 function thenFocusTextEditor() {
     setTimeout(() => vscode.commands.executeCommand('workbench.action.focusActiveEditorGroup'), 250);
@@ -53,6 +56,22 @@ function activate(context) {
     }
     context.subscriptions.push(vscode.commands.registerCommand('newlisp.startREPL', () => {
         getREPL(true);
+    }));
+    context.subscriptions.push(vscode.commands.registerCommand('newlisp.eval', () => {
+        let editor = vscode.window.activeTextEditor;
+        if (editor == null)
+            return;
+        let terminal = getREPL(true);
+        if (terminal == null)
+            return;
+        function send(terminal) {
+            terminal.sendText(prep(editor.document.getText(editor.selection)), false);
+            thenFocusTextEditor();
+        }
+        if (editor.selection.isEmpty)
+            vscode.commands.executeCommand('editor.action.selectToBracket').then(() => send(terminal));
+        else
+            send(terminal);
     }));
     context.subscriptions.push(vscode.commands.registerCommand('newlisp.evalFile', () => {
         let editor = vscode.window.activeTextEditor;
